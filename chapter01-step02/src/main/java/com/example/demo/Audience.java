@@ -17,4 +17,8 @@ public class Audience {
             return ticket.getFee();
         }
     }
+
+    public Bag getBag() {
+        return bag;
+    }
 }
