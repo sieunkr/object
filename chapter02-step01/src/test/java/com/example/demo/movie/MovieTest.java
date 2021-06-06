@@ -2,6 +2,7 @@ package com.example.demo.movie;
 
 import com.example.demo.money.Money;
 import com.example.demo.movie.pricing.AmountDiscountPolicy;
+import com.example.demo.movie.pricing.NoneDiscountPolicy;
 import com.example.demo.movie.pricing.PercentDiscountPolicy;
 import com.example.demo.movie.pricing.SequenceCondition;
 import org.junit.jupiter.api.DisplayName;
@@ -79,6 +80,28 @@ class MovieTest {
 
         Screening screening = new Screening(movie, 2, LocalDateTime.now());
 
+
+        //when
+        Money actualDiscountedFee = movie.calculateMovieFee(screening);
+
+        //then
+        assertEquals(expectedDiscountFee, actualDiscountedFee);
+    }
+
+    @Test
+    @DisplayName("할인 정책이 없는 경우, 요금 계산 검증")
+    void ifNoneDiscountPolicy_calculateMovieFeeTest() {
+
+        //given
+        String title = "반지의제왕";
+        Duration runningTime = Duration.ofHours(1);
+        Money fee = Money.wons(11000);
+        Money expectedDiscountFee = fee;    //할인 없이 동일함..
+        DiscountPolicy discountPolicy = new NoneDiscountPolicy();
+
+        Movie movie = new Movie(title, runningTime, fee, discountPolicy);
+
+        Screening screening = new Screening(movie, 2, LocalDateTime.now());
 
         //when
         Money actualDiscountedFee = movie.calculateMovieFee(screening);
