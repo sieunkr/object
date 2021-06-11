@@ -9,10 +9,10 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ScreeningTest {
+class MovieTest {
 
     @Test
-    void reserveTest() {
+    void calculateMovieFeeTest() {
 
         //given
         SequenceCondition sequenceCondition = new SequenceCondition(3);
@@ -24,16 +24,15 @@ class ScreeningTest {
                 Collections.singletonList(sequenceCondition),
                 MovieType.AMOUNT_DISCOUNT,
                 Money.wons(1000));
-
         Screening screening = new Screening(movie, 3,
                 LocalDateTime.of(2021, 06, 02, 14, 00));
-
-        Customer customer = new Customer("eddy", "123abc");
+        Money expectedFee = Money.wons(11000);
 
         //when
-        Reservation reservation = screening.reserve(customer, 5);
+        Money actualFee = movie.calculateMovieFee(screening);
 
         //then
-        assertEquals(Money.wons(55000), reservation.getFee());
+        assertEquals(expectedFee, actualFee);
+
     }
 }
