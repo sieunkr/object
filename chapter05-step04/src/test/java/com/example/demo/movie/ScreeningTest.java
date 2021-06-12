@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ScreeningTest {
 
     @Test
-    void calculateMovieFeeTest() {
+    void reserveTest() {
 
         //given
         DiscountCondition discountCondition = new SequenceCondition(3);
@@ -26,12 +26,14 @@ class ScreeningTest {
         //Movie 추상클래스에 의존함 164페이지 확인
         Screening screening = new Screening(movie, 3,
                 LocalDateTime.of(2021, 06, 02, 14, 00));
-        Money expectedFee = Money.wons(11000);
+        Customer customer = new Customer("eddy", "123abc");
+
+        Money expectedFee = Money.wons(55000);
 
         //when
-        Money actualFee = movie.calculateMovieFee(screening);
+        Reservation actualReservation = screening.reserve(customer, 5);
 
         //then
-        assertEquals(expectedFee, actualFee);
+        assertEquals(expectedFee, actualReservation.getFee());
     }
 }

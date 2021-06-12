@@ -13,7 +13,7 @@ public class OverlappedDiscountPolicy extends DiscountPolicy {
     private List<DiscountPolicy> discountPolicies = new ArrayList<>();
 
     public OverlappedDiscountPolicy(DiscountPolicy ... discountPolicies) {
-        this. discountPolicies = Arrays.asList(discountPolicies);
+        this.discountPolicies = Arrays.asList(discountPolicies);
     }
 
     @Override
